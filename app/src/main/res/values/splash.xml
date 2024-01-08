@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SplashScreen" parent="Theme.Bazar">
+        <item name="android:windowSplashScreenBackground">#462997</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/app_start</item>
+        <item name="android:windowSplashScreenAnimationDuration">4000</item>
+    </style>
+</resources>

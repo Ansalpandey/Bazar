@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Bazar</string>
+    <string name="onBoardingTitle1">Now reading books will be easier</string>
+    <string name="onBoardingTitle2">Your Bookish Soulmate Awaits</string>
+    <string name="onBoardingTitle3">Start Your Adventure</string>
+    <string name="onBoardingText1"> Discover new worlds, join a vibrant reading community. Start your reading adventure effortlessly with us.</string>
+    <string name="onBoardingText2">Let us be your guide to the perfect read. Discover books tailored to your tastes for a truly rewarding experience.</string>
+    <string name="onBoardingText3">Ready to embark on a quest for inspiration and knowledge? Your adventure begins now. Let\'s go!</string>
+</resources>
