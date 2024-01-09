@@ -1,8 +1,8 @@
 package com.organisation.bazar.screens
 
-import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -17,16 +17,17 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -65,15 +66,20 @@ fun getList(): List<OnBoardScreenItems> {
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun OnBoardingScreen() {
+fun OnBoardingScreen(navController: NavHostController) {
   val pagerState = rememberPagerState()
   val list = getList()
   val scope = rememberCoroutineScope()
-  val mContext = LocalContext.current
   Column(modifier = Modifier.fillMaxSize()) {
     Text(
       text = "Skip",
-      modifier = Modifier.padding(20.dp).clickable {},
+      modifier =
+        Modifier.padding(20.dp).clickable(
+          indication = null,
+          interactionSource = remember { MutableInteractionSource() }
+        ) {
+          navController.navigate("login")
+        },
       fontSize = 16.sp,
       fontWeight = FontWeight.Medium,
       fontFamily = RobotoFamily
@@ -110,7 +116,7 @@ fun OnBoardingScreen() {
           HorizontalPagerIndicator(
             pagerState = pagerState,
             modifier = Modifier.padding(top = 20.dp),
-              activeColor = MainColor
+            activeColor = MainColor
           )
           Column(
             modifier = Modifier.fillMaxWidth().padding(top = 20.dp),
@@ -121,7 +127,8 @@ fun OnBoardingScreen() {
                 if (pagerState.currentPage < list.size - 1) {
                   scope.launch { pagerState.animateScrollToPage(pagerState.currentPage + 1) }
                 } else if (pagerState.currentPage == 2) {
-                  Toast.makeText(mContext, "Will Navigate to next screen", Toast.LENGTH_LONG).show()
+                  navController.popBackStack()
+                  navController.navigate("login")
                 }
               },
               colors = ButtonDefaults.buttonColors(MainColor),
@@ -139,9 +146,16 @@ fun OnBoardingScreen() {
             }
             Text(
               text = "Sign in",
-              modifier = Modifier.padding(top = 20.dp),
+              modifier =
+                Modifier.padding(top = 20.dp).clickable(
+                  indication = null,
+                  interactionSource = remember { MutableInteractionSource() }
+                ) {
+                  navController.popBackStack()
+                  navController.navigate("login")
+                },
               fontWeight = FontWeight.Bold,
-                color = MainColor,
+              color = MainColor,
               fontFamily = RobotoFamily,
             )
           }

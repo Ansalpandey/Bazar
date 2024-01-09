@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.organisation.bazar.screens.OnBoardingScreen
+import com.organisation.bazar.navigation.NavGraph
 import com.organisation.bazar.ui.theme.BazarTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
     setContent {
       BazarTheme {
         // A surface container using the 'background' color from the theme
-        Surface(modifier = Modifier.fillMaxSize(), color = Color.White) { OnBoardingScreen() }
+        Surface(modifier = Modifier.fillMaxSize(), color = Color.White) { NavGraph() }
       }
     }
   }

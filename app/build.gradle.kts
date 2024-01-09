@@ -50,7 +50,7 @@ dependencies {
   androidTestImplementation("androidx.compose.ui:ui-test-junit4")
   debugImplementation("androidx.compose.ui:ui-tooling")
   debugImplementation("androidx.compose.ui:ui-test-manifest")
-  implementation("com.google.accompanist:accompanist-pager:0.22.0")
+  implementation("com.google.accompanist:accompanist-pager:0.23.1")
 
   // Splash Screen API
   implementation("androidx.core:core-splashscreen:1.0.1")
@@ -63,5 +63,7 @@ dependencies {
   implementation ("com.google.accompanist:accompanist-pager-indicators:0.23.1")
 
   // coil
-  implementation("io.coil-kt:coil-compose:2.2.2")
+  implementation("io.coil-kt:coil-compose:2.5.0")
+  implementation ("androidx.compose.material:material-icons-extended:1.5.4")
+
 }
