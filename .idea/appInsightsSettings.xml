@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.organisation.bazar" />
+                  <option name="mobileSdkAppId" value="1:781272303795:android:dd83ab7f79019b9cc2c8c6" />
+                  <option name="projectId" value="brevastudios-eb7ea" />
+                  <option name="projectNumber" value="781272303795" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

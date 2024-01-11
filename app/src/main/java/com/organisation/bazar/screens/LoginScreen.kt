@@ -1,5 +1,6 @@
 package com.organisation.bazar.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -29,6 +30,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -36,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -45,10 +48,12 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.organisation.bazar.R
 import com.organisation.bazar.ui.theme.MainColor
 import com.organisation.bazar.ui.theme.RobotoFamily
+import com.organisation.bazar.viewmodel.AuthViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -90,8 +95,11 @@ fun LoginScreen(navController: NavHostController) {
     }
 
     Column(modifier = Modifier.fillMaxWidth().padding(start = 30.dp, end = 30.dp, top = 30.dp)) {
-      val email = remember { mutableStateOf("") }
-      val password = remember { mutableStateOf("") }
+      var email by remember { mutableStateOf("") }
+      var password by remember { mutableStateOf("") }
+      val context = LocalContext.current
+      val authViewModel: AuthViewModel = viewModel()
+      val firebaseUser by authViewModel.firebaseUser.observeAsState(null)
       Text(
         text = "Email",
         fontFamily = RobotoFamily,
@@ -103,8 +111,8 @@ fun LoginScreen(navController: NavHostController) {
           Modifier.fillMaxWidth()
             .padding(top = 8.dp)
             .shadow(elevation = 8.dp, shape = RoundedCornerShape(8.dp)),
-        value = email.value,
-        onValueChange = { email.value = it },
+        value = email,
+        onValueChange = { email = it },
         textStyle =
           TextStyle(
             color = Color.Black,
@@ -145,8 +153,8 @@ fun LoginScreen(navController: NavHostController) {
           Modifier.fillMaxWidth()
             .padding(top = 5.dp)
             .shadow(elevation = 8.dp, shape = RoundedCornerShape(8.dp)),
-        value = password.value,
-        onValueChange = { password.value = it },
+        value = password,
+        onValueChange = { password = it },
         textStyle =
           TextStyle(
             color = Color.Black,
@@ -199,7 +207,22 @@ fun LoginScreen(navController: NavHostController) {
       Button(
         modifier = Modifier.fillMaxWidth().height(55.dp).padding(),
         colors = ButtonDefaults.buttonColors(MainColor),
-        onClick = { /*TODO*/}
+        onClick = {
+          if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(context, "Enter all the details.", Toast.LENGTH_LONG).show()
+          } else {
+            authViewModel.login(email, password, navController) { success ->
+              if (success) {
+                // Login successful
+                navController.popBackStack()
+                navController.navigate("home_screen")
+              } else {
+                // Login failed
+                Toast.makeText(context, "Incorrect email or password.", Toast.LENGTH_LONG).show()
+              }
+            }
+          }
+        }
       ) {
         Text(
           text = "Login",

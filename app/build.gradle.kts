@@ -1,6 +1,8 @@
 plugins {
   id("com.android.application")
   id("org.jetbrains.kotlin.android")
+  id("com.google.gms.google-services")
+  id("com.google.firebase.firebase-perf")
 }
 
 android {
@@ -54,16 +56,26 @@ dependencies {
 
   // Splash Screen API
   implementation("androidx.core:core-splashscreen:1.0.1")
-  //Navigation API
+  // Navigation API
   implementation("androidx.navigation:navigation-compose:2.7.6")
 
   // pager lib
-  implementation ("com.google.accompanist:accompanist-pager:0.23.1")
+  implementation("com.google.accompanist:accompanist-pager:0.23.1")
   // pager indicator
-  implementation ("com.google.accompanist:accompanist-pager-indicators:0.23.1")
+  implementation("com.google.accompanist:accompanist-pager-indicators:0.23.1")
 
   // coil
   implementation("io.coil-kt:coil-compose:2.5.0")
-  implementation ("androidx.compose.material:material-icons-extended:1.5.4")
+  implementation("androidx.compose.material:material-icons-extended:1.5.4")
 
+  // Firebase
+  implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+  implementation("com.google.firebase:firebase-analytics-ktx")
+  implementation("com.google.firebase:firebase-auth-ktx")
+  implementation("com.google.firebase:firebase-storage-ktx")
+  implementation("com.google.firebase:firebase-database-ktx")
+  implementation("com.google.firebase:firebase-firestore-ktx")
+
+  implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
+  implementation("com.google.firebase:firebase-perf")
 }

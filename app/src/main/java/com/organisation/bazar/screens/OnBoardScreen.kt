@@ -17,6 +17,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -27,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -36,6 +40,7 @@ import com.google.accompanist.pager.rememberPagerState
 import com.organisation.bazar.R
 import com.organisation.bazar.ui.theme.MainColor
 import com.organisation.bazar.ui.theme.RobotoFamily
+import com.organisation.bazar.viewmodel.AuthViewModel
 import kotlinx.coroutines.launch
 
 data class OnBoardScreenItems(
@@ -67,6 +72,21 @@ fun getList(): List<OnBoardScreenItems> {
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnBoardingScreen(navController: NavHostController) {
+  val authViewModel: AuthViewModel = viewModel()
+  val firebaseUser by authViewModel.firebaseUser.observeAsState()
+  LaunchedEffect(firebaseUser) {
+    if (firebaseUser == null) {
+      navController.navigate("on_board_screen") {
+        popUpTo(navController.graph.startDestinationId)
+        launchSingleTop = true
+      }
+    } else {
+      navController.navigate("home_screen") {
+        popUpTo(navController.graph.startDestinationId)
+        launchSingleTop = true
+      }
+    }
+  }
   val pagerState = rememberPagerState()
   val list = getList()
   val scope = rememberCoroutineScope()

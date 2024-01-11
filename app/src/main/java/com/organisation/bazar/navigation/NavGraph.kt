@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.organisation.bazar.screens.HomeScreen
 import com.organisation.bazar.screens.LoginScreen
 import com.organisation.bazar.screens.OnBoardingScreen
 import com.organisation.bazar.screens.RegisterScreen
@@ -15,5 +16,6 @@ fun NavGraph() {
     composable(route = "on_board_screen") { OnBoardingScreen(navController) }
     composable(route = "login") { LoginScreen(navController) }
     composable(route = "sign_up") { RegisterScreen(navController) }
+    composable(route = "home_screen") { HomeScreen(navController) }
   }
 }
