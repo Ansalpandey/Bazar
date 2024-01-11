@@ -103,6 +103,7 @@ fun RegisterScreen(navController: NavHostController) {
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
       )
+
       TextField(
         modifier =
           Modifier.fillMaxWidth()

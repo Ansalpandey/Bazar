@@ -70,12 +70,12 @@ dependencies {
 
   // Firebase
   implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
-  implementation("com.google.firebase:firebase-analytics-ktx")
-  implementation("com.google.firebase:firebase-auth-ktx")
-  implementation("com.google.firebase:firebase-storage-ktx")
-  implementation("com.google.firebase:firebase-database-ktx")
-  implementation("com.google.firebase:firebase-firestore-ktx")
+  implementation("com.google.firebase:firebase-analytics-ktx:21.5.0")
+  implementation("com.google.firebase:firebase-auth-ktx:22.3.0")
+  implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
+  implementation("com.google.firebase:firebase-database-ktx:20.3.0")
+  implementation("com.google.firebase:firebase-firestore-ktx:24.10.0")
 
   implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
-  implementation("com.google.firebase:firebase-perf")
+  implementation("com.google.firebase:firebase-perf:20.5.1")
 }

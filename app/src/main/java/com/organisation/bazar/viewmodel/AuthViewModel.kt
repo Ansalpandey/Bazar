@@ -40,9 +40,22 @@ class AuthViewModel : ViewModel() {
   }
 
   fun register(email: String, password: String, name: String) {
-    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-      if (it.isSuccessful) {
-        _firebaseUser.postValue(auth.currentUser)
+    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { registrationTask ->
+      if (registrationTask.isSuccessful) {
+        val user = auth.currentUser
+        _firebaseUser.postValue(user)
+
+        // Store user information in the database
+        user?.let {
+          val userId = it.uid
+          val userMap = hashMapOf(
+            "uid" to userId,
+            "email" to email,
+            "name" to name
+          )
+
+          userRef.child(userId).setValue(userMap)
+        }
       } else {
         _error.postValue("Something went wrong...")
       }
@@ -53,3 +66,4 @@ class AuthViewModel : ViewModel() {
     auth.signOut()
   }
 }
+
