@@ -11,7 +11,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.organisation.bazar.navigation.NavGraph
 import com.organisation.bazar.screens.MainHome
 import com.organisation.bazar.ui.theme.BazarTheme
 import kotlinx.coroutines.delay

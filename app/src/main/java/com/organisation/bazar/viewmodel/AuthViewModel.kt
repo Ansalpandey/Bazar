@@ -12,10 +12,10 @@ class AuthViewModel : ViewModel() {
   private val auth = FirebaseAuth.getInstance()
   private val dataBase = FirebaseDatabase.getInstance()
 
-  val userRef = dataBase.getReference("users")
+  private val userRef = dataBase.getReference("users")
 
-  private val _firebaseUser = MutableLiveData<FirebaseUser>()
-  val firebaseUser: LiveData<FirebaseUser> = _firebaseUser
+  private val _firebaseUser = MutableLiveData<FirebaseUser?>()
+  val firebaseUser: MutableLiveData<FirebaseUser?> = _firebaseUser
 
   private val _error = MutableLiveData<String>()
   val error: LiveData<String> = _error
@@ -48,11 +48,7 @@ class AuthViewModel : ViewModel() {
         // Store user information in the database
         user?.let {
           val userId = it.uid
-          val userMap = hashMapOf(
-            "uid" to userId,
-            "email" to email,
-            "name" to name
-          )
+          val userMap = hashMapOf("uid" to userId, "email" to email, "name" to name)
 
           userRef.child(userId).setValue(userMap)
         }
@@ -66,4 +62,3 @@ class AuthViewModel : ViewModel() {
     auth.signOut()
   }
 }
-
